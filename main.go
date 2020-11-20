@@ -3,12 +3,12 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"log"
 	baseLog "log"
 	"os"
 
 	"github.com/TestTask/config"
 	"github.com/TestTask/datastore"
+	"github.com/TestTask/logger"
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -20,6 +20,7 @@ func main() {
 	fmt.Println(os.Args[1])
 	var (
 		conf config.Configuration
+		log  logger.Logger
 		db   *sql.DB
 		err  error
 	)
@@ -29,6 +30,11 @@ func main() {
 		baseLog.Fatal(err.Error())
 	}
 	fmt.Println(conf)
+
+	// Create service logger
+	if log, err = logger.New(conf.Log); err != nil {
+		baseLog.Fatal(err.Error())
+	}
 
 	if db, err = datastore.NewDB(conf.MySQL); err != nil {
 		log.Fatal(err.Error())
