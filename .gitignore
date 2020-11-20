@@ -10,7 +10,7 @@
 # Output of the go coverage tool
 *.out
 
-dev/mysql
+dev/_mysql
 .idea/*
 .vscode/*
 vendor/
