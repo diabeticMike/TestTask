@@ -1,0 +1,23 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+.idea/*
+.vscode/*
+vendor/
+*.session.sql
+*.log
+*log.old.*
+dev/mongo
+dev/postgres
+src/.scannerwork
+src/report.json
+*cobertura.xml
