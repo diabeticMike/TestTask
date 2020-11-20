@@ -1,0 +1,15 @@
+{
+    "Log" : {
+        "Level": 6,
+        "ServiceName": "ms",
+        "FileName": "./logs.log"
+    },
+  
+    "MySQL" : {
+      "Password" : "secret",
+      "Username" : "user",
+      "Host": "localhost",
+      "Port": 3306,
+      "DBname": "db"
+    }
+}
