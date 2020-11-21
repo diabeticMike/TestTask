@@ -8,7 +8,7 @@ type User struct {
 
 // UserProfile holds user entity additional info
 type UserProfile struct {
-	ID        uint64 `db:"user_id"`
+	UserID    uint64 `db:"user_id"`
 	FirstName string `db:"first_name"`
 	LastName  string `db:"last_name"`
 	Phone     string `db:"phone"`
@@ -18,6 +18,6 @@ type UserProfile struct {
 
 // UserData holds user school
 type UserData struct {
-	ID     uint64 `db:"user_id"`
+	UserID uint64 `db:"user_id"`
 	School string `db:"school"`
 }
