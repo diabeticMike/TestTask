@@ -4,9 +4,13 @@ import (
 	"database/sql"
 	"fmt"
 	baseLog "log"
+	"net/http"
 	"os"
 
-	"github.com/TestTask/seeds"
+	"github.com/TestTask/seeder"
+	"github.com/TestTask/web/router"
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
 
 	"github.com/TestTask/config"
 	"github.com/TestTask/datastore"
@@ -19,7 +23,7 @@ func main() {
 		fmt.Println("Enter listen port as command agrument")
 		return
 	}
-	fmt.Println(os.Args[1])
+	listenPort := os.Args[1]
 	var (
 		conf config.Configuration
 		log  logger.Logger
@@ -42,12 +46,27 @@ func main() {
 	if db, err = datastore.NewDB(conf.MySQL); err != nil {
 		log.Fatal(err.Error())
 	}
+	defer db.Close()
 	fmt.Println(db)
 
 	// run seeds
 	if len(os.Args) == 3 && os.Args[2] == "true" {
-		if err = seeds.RunSeeds(db); err != nil {
+		if err = seeder.RunSeeds(db); err != nil {
 			log.Fatal(err.Error())
 		}
 	}
+
+	var (
+		mainRouter *mux.Router
+		headers    handlers.CORSOption
+		methods    handlers.CORSOption
+		origins    handlers.CORSOption
+	)
+
+	// get router with CORS parameters
+	mainRouter, headers, methods, origins, err = router.New(log)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	log.Fatal(http.ListenAndServe(":"+listenPort, handlers.CORS(headers, methods, origins)(mainRouter)))
 }
