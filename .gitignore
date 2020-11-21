@@ -17,8 +17,4 @@ vendor/
 *.session.sql
 *.log
 *log.old.*
-dev/mongo
-dev/postgres
-src/.scannerwork
-src/report.json
 *cobertura.xml
