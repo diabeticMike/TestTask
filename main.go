@@ -6,6 +6,8 @@ import (
 	baseLog "log"
 	"os"
 
+	"github.com/TestTask/seeds"
+
 	"github.com/TestTask/config"
 	"github.com/TestTask/datastore"
 	"github.com/TestTask/logger"
@@ -25,19 +27,27 @@ func main() {
 		err  error
 	)
 
-	// Create service configuration
+	// create service configuration
 	if conf, err = config.New("config.json"); err != nil {
 		baseLog.Fatal(err.Error())
 	}
 	fmt.Println(conf)
 
-	// Create service logger
+	// create service logger
 	if log, err = logger.New(conf.Log); err != nil {
 		baseLog.Fatal(err.Error())
 	}
 
+	// create db connection instance
 	if db, err = datastore.NewDB(conf.MySQL); err != nil {
 		log.Fatal(err.Error())
 	}
 	fmt.Println(db)
+
+	// run seeds
+	if len(os.Args) == 3 && os.Args[2] == "true" {
+		if err = seeds.RunSeeds(db); err != nil {
+			log.Fatal(err.Error())
+		}
+	}
 }
