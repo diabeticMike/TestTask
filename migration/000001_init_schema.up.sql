@@ -1,6 +1,6 @@
 CREATE TABLE `auth` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `api-key` varchar(32) NOT NULL DEFAULT '',
+  `api_key` varchar(32) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
