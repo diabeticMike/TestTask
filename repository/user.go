@@ -37,7 +37,7 @@ func (ur *userRepo) GetUserProfileByID(userID uint) (*model.UserProfile, error) 
 }
 
 func (ur *userRepo) GetUserDataByID(userID uint) (*model.UserData, error) {
-	row := ur.db.QueryRow("SELECT * FROM user_data WHERE id=$1 LIMIT 1;", userID)
+	row := ur.db.QueryRow("SELECT * FROM user_data WHERE id=? LIMIT 1;", userID)
 	userData := model.UserData{}
 	if err := row.Scan(&userData.UserID, &userData.School); err != nil {
 		return nil, err

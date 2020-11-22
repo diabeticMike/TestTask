@@ -23,7 +23,7 @@ type authRepo struct {
 
 // GetAuthByAPIKey return all auth entity by api-key
 func (ar *authRepo) GetAuthByAPIKey(key string) (*model.Auth, error) {
-	row := ar.db.QueryRow("SELECT * FROM auth WHERE api-key=$1 LIMIT 1;", key)
+	row := ar.db.QueryRow("SELECT * FROM auth WHERE api_key=?;", key)
 	auth := model.Auth{}
 	if err := row.Scan(&auth.ID, &auth.APIKey); err != nil {
 		return nil, err
