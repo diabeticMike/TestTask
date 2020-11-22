@@ -40,7 +40,7 @@ func (am *AuthMiddleware) AuthMiddleware(next http.HandlerFunc) func(w http.Resp
 				am.log.Errorf("Wrong api-key\n")
 				w.WriteHeader(http.StatusForbidden)
 				w.Header().Add("Content-Type", "application/json")
-				w.Write([]byte(`Missing api-key`))
+				w.Write([]byte(`Wrong api-key`))
 				return
 			}
 			am.log.Error(err.Error())
