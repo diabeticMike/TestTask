@@ -3,7 +3,7 @@ package model
 // User entity
 type User struct {
 	ID   uint64 `db:"id"`
-	Name string `db:"username"`
+	Username string `db:"username"`
 }
 
 // UserProfile holds user entity additional info
@@ -20,4 +20,11 @@ type UserProfile struct {
 type UserData struct {
 	UserID uint64 `db:"user_id"`
 	School string `db:"school"`
+}
+
+// WholeUser for holding all user fields together 
+type WholeUser struct {
+	User
+	UserProfile
+	UserData
 }
