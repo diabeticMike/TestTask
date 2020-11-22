@@ -63,11 +63,13 @@ func main() {
 		methods    handlers.CORSOption
 		origins    handlers.CORSOption
 		authRepo   repository.AuthRepository
+		userRepo   repository.UserRepository
 	)
 
 	authRepo = repository.NewAuthRepo(db)
+	userRepo = repository.NewUserRepo(db)
 	// get router with CORS parameters
-	mainRouter, headers, methods, origins, err = router.New(log, authRepo)
+	mainRouter, headers, methods, origins, err = router.New(log, authRepo, userRepo)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
