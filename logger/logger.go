@@ -1,9 +1,11 @@
 package logger
 
 import (
+	"io"
 	"os"
 
 	"github.com/TestTask/config"
+	"github.com/sirupsen/logrus"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -29,7 +31,8 @@ func New(conf config.LoggerConfig) (Logger, error) {
 		return nil, err
 	}
 
-	log.SetOutput(f)
+	mw := io.MultiWriter(os.Stdout, f)
+	logrus.SetOutput(mw)
 	log.SetLevel(log.Level(conf.Level))
 
 	return &loggerImpl{}, err
