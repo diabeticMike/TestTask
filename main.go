@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/TestTask/repository"
 	"github.com/TestTask/seeder"
 	"github.com/TestTask/web/router"
 	"github.com/gorilla/handlers"
@@ -61,10 +62,12 @@ func main() {
 		headers    handlers.CORSOption
 		methods    handlers.CORSOption
 		origins    handlers.CORSOption
+		authRepo   repository.AuthRepository
 	)
 
+	authRepo = repository.NewAuthRepo(db)
 	// get router with CORS parameters
-	mainRouter, headers, methods, origins, err = router.New(log)
+	mainRouter, headers, methods, origins, err = router.New(log, authRepo)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
