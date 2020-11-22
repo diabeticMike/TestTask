@@ -24,7 +24,7 @@ type UserController struct {
 }
 
 func (uc *UserController) GetUserData(w http.ResponseWriter, r *http.Request) {
-	if _, ok := r.URL.Query()["username"]; !ok {
+	if _, ok := r.URL.Query()["username"]; !ok || (ok && r.URL.Query()["username"][0] == "") {
 
 		return
 	}
